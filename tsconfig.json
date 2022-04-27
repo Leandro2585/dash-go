@@ -21,7 +21,8 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "include": [
