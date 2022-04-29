@@ -1,7 +1,6 @@
-import React from 'react'
 import { Box, Button, Stack } from '@chakra-ui/react'
 
-export const Pagination: React.FC = () => {
+export const Pagination = () => {
   return(
     <Stack direction='row' mt='8' justify='space-between' align='center' spacing='6'>
       <Box>
