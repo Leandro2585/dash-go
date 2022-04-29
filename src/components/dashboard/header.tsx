@@ -1,6 +1,6 @@
+import React from 'react'
 import { RiSearchLine, RiNotificationLine, RiUserAddLine } from 'react-icons/ri'
-import { Flex, Icon, Input, HStack, Text, Box, Avatar } from '@chakra-ui/react';
-import React from 'react';
+import { Flex, Icon, Input, HStack, Text, Box, Avatar } from '@chakra-ui/react'
 
 export const Header: React.FC = () => {
   return (
