@@ -1,19 +1,21 @@
-import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
-import { Header, SideBar } from '@components/dashboard';
-import { Pagination } from '@components/dashboard';
-import { RiAddLine } from 'react-icons/ri';
+import { RiAddLine, RiPencilLine } from 'react-icons/ri'
+import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { Pagination } from '@components/pagination'
+import { SideBar } from '@components/side-bar'
+import { Header } from '@components/header'
 
 export default function UserList() {
   return (
     <Box>
       <Header/>
-      <Flex w='100%' my='6' maxW={1480} mx='auto' px='6'>
+      <Flex w='100%' my='6' maxWidth={1480} mx='auto' px='6'>
         <SideBar/>
         <Box flex='1' borderRadius={8} bg='gray.800' p='8'>
           <Flex mb='8' justify='space-between' align='center'>
             <Heading size='lg' fontWeight='normal'>Usuários</Heading>
             <Button as='a' size='sm' fontSize='sm' colorScheme='pink' leftIcon={<Icon as={RiAddLine} fontSize='20'/>}>Criar novo</Button>
           </Flex>
+
           <Table colorScheme='whiteAlpha'>
             <Thead>
               <Tr>
@@ -38,7 +40,7 @@ export default function UserList() {
                 </Td>
                 <Td>20 de Abril, 2022</Td>
                 <Td>
-                  <Button as='a' size='sm' fontSize='sm' colorScheme='purple' leftIcon={<Icon as={RiAddLine} fontSize='16'/>}>Editar</Button>
+                  <Button as='a' size='sm' fontSize='sm' colorScheme='purple' leftIcon={<Icon as={RiPencilLine} fontSize='16'/>}>Editar</Button>
                 </Td>
               </Tr>
             </Tbody>
