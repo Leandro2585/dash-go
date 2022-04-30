@@ -22,7 +22,8 @@
     "rootDir": ".",
     "paths": {
       "@styles/*": ["./src/styles/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@contexts/*": ["./src/contexts/*"],
     }
   },
   "include": [
