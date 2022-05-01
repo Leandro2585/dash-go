@@ -24,6 +24,7 @@
       "@styles/*": ["./src/styles/*"],
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
+      "@services/*": ["./src/services/*"],
       "@validators/*": ["./src/validators/*"]
     }
   },
