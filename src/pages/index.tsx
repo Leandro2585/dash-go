@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { Button, Flex, Stack } from '@chakra-ui/react'
 import { Input } from '@components/form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { signInFormSchema } from 'src/validators'
+import { signInFormSchema } from '@validators/global'
 
 type SignInFormData = {
   email: string
