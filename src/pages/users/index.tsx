@@ -6,22 +6,10 @@ import Link from 'next/link'
 import { Pagination } from '@components/pagination'
 import { SideBar } from '@components/side-bar'
 import { Header } from '@components/header'
+import { useLoadUsers } from 'src/hooks/load-users'
 
 export default function UserList() {
-  const { isLoading, error, data } = useQuery('users', async () => {
-    const response = await fetch('http://localhost:3000/api/users')
-    const responseData = await response.json()
-    const users = responseData.users.map(user => Object.assign(user, { 
-      createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric' 
-      })
-    }))
-    return users
-  }, {
-    staleTime: 1000 * 5
-  })
+  const { isLoading, isFetching, error, data } = useLoadUsers()
   const isWideVersion = useBreakpointValue({ base: false, lg: true })
 
   return (
@@ -31,7 +19,10 @@ export default function UserList() {
         <SideBar/>
         <Box flex='1' borderRadius={8} bg='gray.800' p='8'>
           <Flex mb='8' justify='space-between' align='center'>
-            <Heading size='lg' fontWeight='normal'>Usuários</Heading>
+            <Heading size='lg' fontWeight='normal'>
+              Usuários
+              {!isLoading && isFetching && <Spinner size='sm' color='gray.500' ml='4'/> }
+            </Heading>
             <Link href='/users/create' passHref>
               <Button 
                 as='a' 
@@ -41,11 +32,8 @@ export default function UserList() {
                 leftIcon={<Icon as={RiAddLine} fontSize='20'/>}>
                 Criar novo
               </Button>
-
             </Link>
-          </Flex>
-
-          
+          </Flex>          
           {isLoading ? (
             <Flex justify='center'>
               <Spinner/>

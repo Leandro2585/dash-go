@@ -3,7 +3,8 @@ import { QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 
-import { makeHttpServer, queryClient } from '@services/global'
+import { queryClient } from '@services/react-query'
+import { makeHttpServer } from '@services/mirage'
 import { SideBarDrawerProvider } from '@contexts/global'
 import { theme } from '@styles/theme'
 
