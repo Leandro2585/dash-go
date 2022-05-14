@@ -3,20 +3,20 @@ import { Button, Flex, Stack } from '@chakra-ui/react'
 import { Input } from '@components/form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { signInFormSchema } from '@validators/global'
-
-type SignInFormData = {
-  email: string
-  password: string
-}
+import { useContext } from 'react'
+import { AuthContext, SignInCredentials } from '@contexts/auth-context'
 
 export default function Login() {
+  const { signIn } = useContext(AuthContext)
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInFormSchema)
   })
   
-  const handleSignIn: SubmitHandler<SignInFormData> = (values, event) => {
+  const handleSignIn: SubmitHandler<SignInCredentials> = async (values, event) => {
     event.preventDefault()
+    await signIn(values)
   }
+  
   return (
     <Flex w='100vw' h='100vh' align='center' justify='center'>
       <Flex

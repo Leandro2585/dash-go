@@ -3,9 +3,10 @@ import { Button } from "@chakra-ui/react"
 type Props = {
   number: number
   isCurrent?: boolean
+  onPageChange: (page: number) => void
 }
 
-export const PageButton = ({ isCurrent = false, number }: Props) => {
+export const PageButton = ({ isCurrent = false, number, onPageChange }: Props) => {
   if(isCurrent) {
     return (
       <Button 
@@ -21,11 +22,13 @@ export const PageButton = ({ isCurrent = false, number }: Props) => {
   }
   return (
     <Button 
-      size='sm' 
-      fontSize='xs' 
-      width='4' 
       bg='gray.700' 
-      _hover={{ bg: 'gray.500' }}>
+      size='sm' 
+      width='4' 
+      _hover={{ bg: 'gray.500' }}
+      fontSize='xs'
+      onClick={() => onPageChange(number)}
+    >
       {number}
     </Button>
   )
