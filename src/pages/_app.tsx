@@ -3,11 +3,9 @@ import { QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 
-import { queryClient } from '@services/react-query'
-import { makeHttpServer } from '@services/mirage'
-import { SideBarDrawerProvider } from '@contexts/global'
+import { SideBarDrawerProvider, AuthContextProvider } from '@contexts/global'
+import { queryClient, makeHttpServer } from '@services/global'
 import { theme } from '@styles/theme'
-import { AuthContextProvider } from '@contexts/auth-context'
 
 if(process.env.NODE_ENV === 'development') makeHttpServer()
 

@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic'
 import { Box, Flex, SimpleGrid, Text, theme } from '@chakra-ui/react'
+
 import { Header } from '@components/header'
 import { SideBar } from '@components/side-bar'
-import { charData, chartOptions } from 'src/constants/apex-charts'
-import { useContext } from 'react'
-import { AuthContext } from '@contexts/auth-context'
+import { withSSRAuth } from '@lib/global'
+import { charData, chartOptions } from '@constants/apex-charts'
+import { setupExternalAPIClient } from '@services/api'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -28,3 +29,11 @@ export default function Dashboard() {
     </Flex>
   )
 }
+
+export const getServerSideProps = withSSRAuth(async (context) => {
+  const externalApiClient = setupExternalAPIClient(context)
+  const response = await externalApiClient.get('/me')
+  return {
+    props: {}
+  }
+})

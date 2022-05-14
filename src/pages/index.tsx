@@ -1,10 +1,12 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { Button, Flex, Stack } from '@chakra-ui/react'
-import { Input } from '@components/form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { signInFormSchema } from '@validators/global'
 import { useContext } from 'react'
-import { AuthContext, SignInCredentials } from '@contexts/auth-context'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button, Flex, Stack } from '@chakra-ui/react'
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { Input } from '@components/form'
+import { withSSRGuest } from '@lib/global'
+import { signInFormSchema } from '@validators/global'
+import { AuthContext, SignInCredentials } from '@contexts/global'
 
 export default function Login() {
   const { signIn } = useContext(AuthContext)
@@ -58,3 +60,10 @@ export default function Login() {
     </Flex>
   )
 }
+
+
+export const getServerSideProps = withSSRGuest(async (context) => {
+   return {
+    props: {}
+  }
+})

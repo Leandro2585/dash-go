@@ -1,4 +1,4 @@
-import { api, externalApi } from '@services/api'
+import { api, setupExternalAPIClient } from '@services/api'
 import router from 'next/router'
 import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import { createContext, ReactNode, useCallback, useEffect, useState } from 'react'
@@ -39,10 +39,10 @@ type AuthProviderProps = {
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>()
   const isAuthenticated = !!user
-
+  const externalApiClient = setupExternalAPIClient()
   useEffect(() => {
     const { 'dashgo.token': token, 'dashgo.refresh-token': refreshToken } = parseCookies()
-    if(token) externalApi.get('/me')
+    if(token) externalApiClient.get('/me')
       .then(response => {
         const { email, permissions, roles } = response.data
         setUser({ email, permissions, roles })
@@ -54,7 +54,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     try {
-      const response = await externalApi.post('sessions', { email, password })
+      const response = await externalApiClient.post('sessions', { email, password })
       const { token, refreshToken, permissions, roles } = response.data
       setUser({ email, permissions, roles })
       setCookie(undefined, 'dashgo.token', token, { maxAge: 60 * 60 * 24 * 30, path: '/' })
