@@ -1,6 +1,8 @@
-import { signOut } from '@contexts/auth-context'
+import { parseCookies, setCookie } from 'nookies'
 import axios, { AxiosError } from 'axios'
-import { destroyCookie, parseCookies, setCookie } from 'nookies'
+
+import { signOut } from '@contexts/global'
+import { AuthTokenError } from '@errors/global'
 
 export const api = axios.create({
   baseURL: 'http://localhost:3000/api'
@@ -62,7 +64,11 @@ export const setupExternalAPIClient = (context = undefined) => {
           })
         })
       } else {
-        signOut()
+        if(typeof window !== 'undefined') {
+          signOut()
+        } else {
+          return Promise.reject(new AuthTokenError())
+        }
       }
     }
     return Promise.reject(error)

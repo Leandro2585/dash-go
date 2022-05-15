@@ -6,6 +6,8 @@ import { SideBar } from '@components/side-bar'
 import { withSSRAuth } from '@lib/global'
 import { charData, chartOptions } from '@constants/apex-charts'
 import { setupExternalAPIClient } from '@services/api'
+import { AuthTokenError } from '@errors/global'
+import { destroyCookie } from 'nookies'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 

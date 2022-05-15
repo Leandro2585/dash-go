@@ -29,6 +29,7 @@
       "@validators/*": ["./src/validators/*"],
       "@lib/*": ["./src/lib/*"],
       "@constants/*": ["./src/constants/*"],
+      "@errors/*": ["./src/errors/*"],
     }
   },
   "include": [
