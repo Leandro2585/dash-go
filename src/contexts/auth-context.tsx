@@ -3,9 +3,9 @@ import router from 'next/router'
 import { destroyCookie, parseCookies, setCookie } from 'nookies'
 import { createContext, ReactNode, useCallback, useEffect, useState } from 'react'
 
-type Permissions = 'users.list' | 'users.create' | 'metrics.list'
+export type Permissions = 'users.list' | 'users.create' | 'metrics.list'
 
-type Roles = 'administrator' | 'editor'
+export type Roles = 'administrator' | 'editor'
 
 type User = {
   email: string
