@@ -7,7 +7,7 @@ export type Permissions = 'users.list' | 'users.create' | 'metrics.list'
 
 export type Roles = 'administrator' | 'editor'
 
-type User = {
+export type User = {
   email: string
   permissions: Permissions[],
   roles: Roles[]
