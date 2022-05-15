@@ -20,15 +20,19 @@ export type SignInCredentials = {
 
 type AuthContextData = {
   signIn(credentials: SignInCredentials): Promise<void>
+  signOut(): void
   user: User
   isAuthenticated: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextData)
 
+let authChannel: BroadcastChannel
+
 export const signOut = () => {
   destroyCookie(undefined, 'dashgo.token')
   destroyCookie(undefined, 'dashgo.refresh-token')
+  authChannel.postMessage('signOut')
   router.push('/')
 }
 
@@ -40,6 +44,22 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>()
   const isAuthenticated = !!user
   const externalApiClient = setupExternalAPIClient()
+  
+  useEffect(() => {
+    authChannel = new BroadcastChannel('auth')
+    authChannel.onmessage = (msg) => {
+      switch (msg.data) {
+        case 'signOut':
+          signOut()
+          break
+        case 'signIn':
+          router.push('/dashboard')
+        default:
+          break
+      }
+    }
+  }, [])
+
   useEffect(() => {
     const { 'dashgo.token': token, 'dashgo.refresh-token': refreshToken } = parseCookies()
     if(token) externalApiClient.get('/me')
@@ -66,7 +86,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     } 
   }, [])
   return (
-    <AuthContext.Provider value={{ signIn, isAuthenticated, user }}>
+    <AuthContext.Provider value={{ signIn, isAuthenticated, user, signOut }}>
       {children}
     </AuthContext.Provider>
   )
